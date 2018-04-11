@@ -64,11 +64,15 @@ type Backends struct {
 
 // 通过不同的参数获取不同的后端对象
 func GetBackend(backend SupportedBackend) Backend {
+	return GetBackendWithPrivateKey(backend, AccountPrivateKey)
+}
+
+func GetBackendWithPrivateKey(backend SupportedBackend, pk string) Backend {
 	var ret Backend
 	switch backend {
 	case APIBackend:
 		if backends.API == nil {
-			backends.API = ApiBackend{backend, apiBase, httpClient}
+			backends.API = ApiBackend{backend, apiBase, httpClient, pk}
 		}
 
 		ret = backends.API
