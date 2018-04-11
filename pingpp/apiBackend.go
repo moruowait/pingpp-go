@@ -19,6 +19,7 @@ type ApiBackend struct {
 	Type       SupportedBackend
 	URL        string
 	HTTPClient *http.Client
+	PrivKey    string
 }
 
 // 后端处理请求方法
@@ -73,8 +74,8 @@ func (s *ApiBackend) NewRequest(method, path, key, contentType string, body io.R
 	req.Header.Set("Pingplusplus-Request-Timestamp", requestTime)
 	dataToBeSign = dataToBeSign + req.URL.RequestURI() + requestTime
 
-	if len(AccountPrivateKey) > 0 {
-		sign, err := GenSign([]byte(dataToBeSign), []byte(AccountPrivateKey))
+	if len(s.PrivKey) > 0 {
+		sign, err := GenSign([]byte(dataToBeSign), []byte(s.PrivKey))
 		if err != nil {
 			if LogLevel > 0 {
 				log.Printf("Cannot create RSA signature: %v\n", err)
