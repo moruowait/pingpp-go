@@ -1,4 +1,4 @@
-From ef3d8cc901f9ef6ee884e1e052c2a9f7cdcd534b Mon Sep 17 00:00:00 2001
+From 2f0760617a29dc0139b8fd14fcf19c903e7d49cb Mon Sep 17 00:00:00 2001
 From: idy <idy0013@gmail.com>
 Date: Wed, 11 Apr 2018 13:06:56 +0800
 Subject: [PATCH] add per-backend private key
@@ -11,7 +11,7 @@ Subject: [PATCH] add per-backend private key
  2 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/pingpp/apiBackend.go b/pingpp/apiBackend.go
-index b39205e..e51bee1 100644
+index 54715af..f5fd465 100644
 --- a/pingpp/apiBackend.go
 +++ b/pingpp/apiBackend.go
 @@ -19,6 +19,7 @@ type ApiBackend struct {
@@ -21,7 +21,7 @@ index b39205e..e51bee1 100644
 +	PrivKey    string
  }
  
- // 后端处理请求方法
+ // Call 后端处理请求方法
 @@ -73,8 +74,8 @@ func (s *ApiBackend) NewRequest(method, path, key, contentType string, body io.R
  	req.Header.Set("Pingplusplus-Request-Timestamp", requestTime)
  	dataToBeSign = dataToBeSign + req.URL.RequestURI() + requestTime
@@ -55,5 +55,5 @@ index 937f921..df8a836 100644
  
  		ret = backends.API
 -- 
-2.16.2
+2.18.0
 
